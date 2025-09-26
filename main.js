@@ -3,6 +3,10 @@ const score_input = document.querySelector("#score");
 const add_button = document.querySelector("#add");
 const start_button = document.querySelector("#start");
 const board = document.querySelector("#board");
+const fail_button_left = document.querySelector("#fail_left");
+const fail_button_right = document.querySelector("#fail_right");
+const fail_counter_left = document.querySelector("#fail_counter_left");
+const fail_counter_right = document.querySelector("#fail_counter_right");
 
 const good_sound = new Audio("audio/good.wav");
 const bad_sound = new Audio("audio/bad.wav");
@@ -55,4 +59,26 @@ start_button.addEventListener("click", () => {
             child.textContent = ".............";
         }
     });
+});
+
+fail_button_left.addEventListener("click", () => {
+    const p = document.createElement("p");
+    p.textContent = "X";
+    p.style.cursor = "pointer";
+    p.addEventListener("click", function () {
+        this.remove();
+    });
+    fail_counter_left.appendChild(p);
+    bad_sound.play();
+});
+
+fail_button_right.addEventListener("click", () => {
+    const p = document.createElement("p");
+    p.textContent = "X";
+    p.style.cursor = "pointer";
+    p.addEventListener("click", function () {
+        this.remove();
+    });
+    fail_counter_right.appendChild(p);
+    bad_sound.play();
 });

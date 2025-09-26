@@ -44,6 +44,7 @@ body {
 
 #board pre {
     font-size: 20px;
+    user-select: none;
 }
 
 .inputs-container {
@@ -87,4 +88,50 @@ input[type="button"] {
 input[type="button"]:hover {
     background: linear-gradient(90deg, #FFA500 0%, #FFD700 100%);
     transform: scale(1.05);
+}
+
+.Fails_left, .Fails_right {
+    position: fixed;
+    bottom: 0;
+    width: 120px;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+    padding-bottom: 10px;
+}
+
+.Fails_left {
+    left: 0;
+}
+
+.Fails_right {
+    right: 0;
+}
+
+.fail_counters {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.fail_counters p {
+    margin: 2px 0;
+    font-size: 5em;
+    color: #FFD700;
+    font-family: 'Familiada', monospace;
+    text-align: center;
+    text-shadow: 0 0 8px #FFD700, 0 0 24px #FFD70088;
+}
+
+.Fails_left input[type="button"],
+.Fails_right input[type="button"] {
+    margin-top: 0;
+    margin-bottom: 0;
+    align-self: stretch;
 }
