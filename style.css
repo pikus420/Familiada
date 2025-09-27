@@ -127,6 +127,7 @@ input[type="button"]:hover {
     font-family: 'Familiada', monospace;
     text-align: center;
     text-shadow: 0 0 8px #FFD700, 0 0 24px #FFD70088;
+    user-select: none;
 }
 
 .Fails_left input[type="button"],
@@ -134,4 +135,12 @@ input[type="button"]:hover {
     margin-top: 0;
     margin-bottom: 0;
     align-self: stretch;
+}
+
+
+
+@media only screen and (max-width: 1200px){
+    #board pre {
+        font-size: 1.5vw;
+    }
 }

@@ -15,13 +15,16 @@ let pairs = [];
 let started = false;
 
 add_button.addEventListener("click", () => {
-    const answer = answer_input.value.trim().toUpperCase();
-    const score = parseInt(score_input.value, 10);
+    let answer = answer_input.value.trim().toUpperCase();
+    let score = parseInt(score_input.value, 10);
 
     if (answer && !isNaN(score)) {
         if (pairs.length === 0) {
             board.innerHTML = "";
         }
+
+        if(score < 1)
+            score = 1;
 
         pairs.push({ answer, score });
 
@@ -37,6 +40,8 @@ add_button.addEventListener("click", () => {
             pairElement.dataset.score = pair.score;
 
             pairElement.addEventListener("click", function () {
+                // Only allow revealing after game started
+                if (!started) return;
                 if (this.dataset.revealed === "false") {
                     this.textContent = `${this.dataset.answer} - ${this.dataset.score}`;
                     good_sound.play();
@@ -62,23 +67,27 @@ start_button.addEventListener("click", () => {
 });
 
 fail_button_left.addEventListener("click", () => {
-    const p = document.createElement("p");
-    p.textContent = "X";
-    p.style.cursor = "pointer";
-    p.addEventListener("click", function () {
-        this.remove();
-    });
-    fail_counter_left.appendChild(p);
-    bad_sound.play();
+    if (fail_counter_left.querySelectorAll("p").length < 3) {
+        const p = document.createElement("p");
+        p.textContent = "X";
+        p.style.cursor = "pointer";
+        p.addEventListener("click", function () {
+            this.remove();
+        });
+        fail_counter_left.appendChild(p);
+        bad_sound.play();
+    }
 });
 
 fail_button_right.addEventListener("click", () => {
-    const p = document.createElement("p");
-    p.textContent = "X";
-    p.style.cursor = "pointer";
-    p.addEventListener("click", function () {
-        this.remove();
-    });
-    fail_counter_right.appendChild(p);
-    bad_sound.play();
+    if (fail_counter_right.querySelectorAll("p").length < 3) {
+        const p = document.createElement("p");
+        p.textContent = "X";
+        p.style.cursor = "pointer";
+        p.addEventListener("click", function () {
+            this.remove();
+        });
+        fail_counter_right.appendChild(p);
+        bad_sound.play();
+    }
 });
