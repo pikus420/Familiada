@@ -26,6 +26,16 @@ add_button.addEventListener("click", () => {
         if(score < 1)
             score = 1;
 
+        let scoreStr = score.toString();
+        if (answer.length + scoreStr.length > 27) {
+            let maxAnswerLen = 26 - scoreStr.length;
+            if (maxAnswerLen > 0) {
+                answer = answer.slice(0, maxAnswerLen - 1) + ".";
+            } else {
+                answer = ".";
+            }
+        }
+
         pairs.push({ answer, score });
 
         pairs.sort((a, b) => b.score - a.score);
@@ -40,7 +50,6 @@ add_button.addEventListener("click", () => {
             pairElement.dataset.score = pair.score;
 
             pairElement.addEventListener("click", function () {
-                // Only allow revealing after game started
                 if (!started) return;
                 if (this.dataset.revealed === "false") {
                     this.textContent = `${this.dataset.answer} - ${this.dataset.score}`;

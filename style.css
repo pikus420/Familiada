@@ -16,8 +16,7 @@ body {
 }
 
 #board {
-    width: 90vw;
-    max-width: 1200px;
+    width: 85vw;
     height: 60vh;
     margin: 40px auto 20px auto;
     background: #444;
@@ -26,9 +25,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-#board {
     flex-direction: column;
 }
 
