@@ -1,7 +1,7 @@
 const answer_input = document.querySelector("#answer");
 const score_input = document.querySelector("#score");
 const add_button = document.querySelector("#add");
-const start_button = document.querySelector("#start");
+const hide_button = document.querySelector("#hide");
 const board = document.querySelector("#board");
 const fail_button_left = document.querySelector("#fail_left");
 const fail_button_right = document.querySelector("#fail_right");
@@ -12,7 +12,7 @@ const good_sound = new Audio("audio/good.wav");
 const bad_sound = new Audio("audio/bad.wav");
 
 let pairs = [];
-let started = false;
+let is_hidden = false;
 
 add_button.addEventListener("click", () => {
     let answer = answer_input.value.trim().toUpperCase();
@@ -43,14 +43,14 @@ add_button.addEventListener("click", () => {
         board.innerHTML = "";
         pairs.forEach(pair => {
             const pairElement = document.createElement("div");
-            pairElement.textContent = started ? "............." : `${pair.answer} - ${pair.score}`;
+            pairElement.textContent = is_hidden ? "............." : `${pair.answer} - ${pair.score}`;
             pairElement.style.cursor = "pointer";
             pairElement.dataset.revealed = "false";
             pairElement.dataset.answer = pair.answer;
             pairElement.dataset.score = pair.score;
 
             pairElement.addEventListener("click", function () {
-                if (!started) return;
+                if (!is_hidden) return;
                 if (this.dataset.revealed === "false") {
                     this.textContent = `${this.dataset.answer} - ${this.dataset.score}`;
                     good_sound.play();
@@ -66,13 +66,16 @@ add_button.addEventListener("click", () => {
     }
 });
 
-start_button.addEventListener("click", () => {
-    started = true;
+hide_button.addEventListener("click", () => {
+    is_hidden = !is_hidden;
+
     Array.from(board.children).forEach(child => {
         if (child.dataset && child.dataset.revealed === "false") {
-            child.textContent = ".............";
+            child.textContent = is_hidden ? "............." : `${child.dataset.answer} - ${child.dataset.score}`;
         }
     });
+
+    hide_button.value = is_hidden ? "Odkryj 👁" : "Ukryj 👁";
 });
 
 fail_button_left.addEventListener("click", () => {
