@@ -8,13 +8,15 @@ const fail_button_right = document.querySelector("#fail_right");
 const fail_counter_left = document.querySelector("#fail_counter_left");
 const fail_counter_right = document.querySelector("#fail_counter_right");
 
-const good_sound = new Audio("audio/good.wav");
-const bad_sound = new Audio("audio/bad.wav");
+function playSound(src) {
+    const sound = new Audio(src);
+    sound.play();
+}
 
 let pairs = [];
 let is_hidden = false;
 
-add_button.addEventListener("click", () => {
+function addPair() {
     let answer = answer_input.value.trim().toUpperCase();
     let score = parseInt(score_input.value, 10);
 
@@ -53,7 +55,7 @@ add_button.addEventListener("click", () => {
                 if (!is_hidden) return;
                 if (this.dataset.revealed === "false") {
                     this.textContent = `${this.dataset.answer} - ${this.dataset.score}`;
-                    good_sound.play();
+                    playSound("audio/good.wav");
                     this.dataset.revealed = "true";
                 }
             });
@@ -64,6 +66,15 @@ add_button.addEventListener("click", () => {
         answer_input.value = "";
         score_input.value = "";
     }
+}
+
+add_button.addEventListener("click", addPair);
+
+answer_input.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") addPair();
+});
+score_input.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") addPair();
 });
 
 hide_button.addEventListener("click", () => {
@@ -87,7 +98,7 @@ fail_button_left.addEventListener("click", () => {
             this.remove();
         });
         fail_counter_left.appendChild(p);
-        bad_sound.play();
+        playSound("audio/bad.wav");
     }
 });
 
@@ -100,6 +111,6 @@ fail_button_right.addEventListener("click", () => {
             this.remove();
         });
         fail_counter_right.appendChild(p);
-        bad_sound.play();
+        playSound("audio/bad.wav");
     }
 });
